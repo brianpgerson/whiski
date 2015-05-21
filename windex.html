@@ -1,0 +1,69 @@
+<!DOCTYPE=html>
+<html lang = "en">
+<head>
+  <meta charset = "utf-8">
+  <meta content = "width = device-width, initial-scale=1.0" name = "viewport">
+  <meta content = "description" name = "Whiskey club ratings forever">
+
+
+  <title>WHISKI</title>
+
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nunito">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/base-min.css">
+  <link rel="stylesheet" href="css/basicW.css"> 
+  <link rel="stylesheet" href="css/stylesW.css">
+   
+<script type="text/javascript">
+  function wordParser(){
+    var str = document.rating.notes.value;
+    var strSplit = str.toLowerCase().split(",");
+      for (i=0; i<strSplit.length; i++) {
+        var wordSplit = strSplit[i].split("");
+          if (wordSplit[0] === " ") {
+            strSplit[i] = wordSplit.slice(1).join("");
+          }
+      }
+    return strSplit;
+  }
+</script>
+
+</head>
+<body>
+
+
+    <div id = "grad"></div>
+
+    <div id = "container">
+
+  <h1 class = "target">WHISKI</h1>
+
+        <div class="input-section clearfix">
+          <form id="rating" action="POST" name="rating" onsubmit="return(wordParser())">
+            <ul>
+             <li>
+              <label for="tastingScore">Overall Score:</label>
+              <input type="number" name="Tasting Score" placeholder="0 - 10..."></li>
+             <li>
+              <label for="smoothness">Smoothness:</label>
+              <input type="number" name="Smoothness" placeholder="0 - 10..."></li>
+             <li>
+              <label for="uniqueness">Uniqueness:</label>
+              <input type="number" name="Uniqueness" placeholder="0 - 10..."></li>
+             <li>
+              <label for="tastingNotes">Tasting Notes:</label>
+              <input type="text" name="notes" placeholder="Oak, smoke, stardust..."></li>
+             <li>
+              <label for="Nose">Nose:</label>
+              <input type="text" name="nose" placeholder="Fire, vanilla, bad decisions..."></li>
+             <li>
+               <input type="submit" value="Submit" id="button">
+             </li>
+           </ul>
+          </form>
+
+          <footer>Powered by Handmade Design</footer>
+        </div>
+
+</div>
+</body>
+</html>
