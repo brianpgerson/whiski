@@ -17,37 +17,44 @@
   <script type="text/javascript">
 
     $(document).ready(function() {
-        $(".output").hide();
-
         $('#rating').on('submit', function(e){
-          e.preventDefault();
-          
-          $.ajax ({
-              type: "POST",
-              url: "whiskiDB.php",
-              data: $('#rating').serialize(),
-              success: function(response) {
-                 $("#rating").hide();
-                 $(".output").show();
-               },
-            });
-         });  
-        
-       
-  function wordParser(){
-    var str = document.rating.notes.value;
-    var strSplit = str.toLowerCase().split(",");
-      for (i=0; i<strSplit.length; i++) {
-        var wordSplit = strSplit[i].split("");
-          if (wordSplit[0] === " ") {
-            strSplit[i] = wordSplit.slice(1).join("");
+          var formData = $(this).serialize();
+          $.post("/PHP/whiskiDB.php", formData, processData);
+          function processData(data){
+              $(".output").html("<p>Data object:" + data + "</p>");
+            
           }
-      }
-    return strSplit;
-  }
+          return false;
+
+//          e.preventDefault();
+
+         //  $.ajax ({
+         //      type: "POST",
+         //      url: "whiskiDB.php",
+         //      data: $('#rating').serialize(),
+         //      success: function(response) {
+         //         $("#rating").hide();
+         //         $(".output").show();
+         //       },
+         //    });
+             
+         // });  
+
+       
+  // function wordParser(){
+  //   var str = document.rating.notes.value;
+  //   var strSplit = str.toLowerCase().split(",");
+  //     for (i=0; i<strSplit.length; i++) {
+  //       var wordSplit = strSplit[i].split("");
+  //         if (wordSplit[0] === " ") {
+  //           strSplit[i] = wordSplit.slice(1).join("");
+  //         }
+  //     }
+  //   return strSplit;
+  // }
 
   });
-
+});
 
 </script>
 
@@ -93,7 +100,7 @@
   <!-- output -->
 
     <div class = "output">
-
+woof.
 
     </div>
 

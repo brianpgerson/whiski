@@ -34,16 +34,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$aroma = test_input($_POST['aroma']);
 	$sql = "INSERT INTO whiski (overall, smoothness, uniqueness, taste, aroma) 
 	VALUES ('$overall', '$smoothness', '$uniqueness', '$taste', '$aroma')";
-}
 
+	$return_arr = array();
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-	$overall = test_input($_POST['overall']);
-	$smoothness = test_input($_POST['smoothness']);
-	$uniqueness = test_input($_POST['uniqueness']);
-	$taste = test_input($_POST['taste']);
-	$aroma = test_input($_POST['aroma']);
-	$sql = "SELECT * FROM whiski";
+	$fetch = mysql_query("SELECT * FROM whiski"); 
+
+		while ($row = mysql_fetch_array($fetch, MYSQL_ASSOC)) {
+    		$row_array['ID'] = $row['id'];
+    		$row_array['overall'] = $row['overall'];
+    		$row_array['smoothness'] = $row['smoothness'];
+    		$row_array['uniqueness'] = $row['uniqueness'];
+    		$row_array['taste'] = $row['taste'];
+    		$row_array['aroma'] = $row['aroma'];
+
+	    	array_push($return_arr,$row_array);
+		}
+
+	echo '{"Result": '.json_encode($return_arr).'}';
+
 }
 
 
