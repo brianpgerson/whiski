@@ -17,28 +17,42 @@
   <script type="text/javascript">
 
     $(document).ready(function() {
+        $('.output').hide();
+
+
         $('#rating').on('submit', function(e){
+          $('#rating').hide();
+          $('.output').show();
+
           var formData = $(this).serialize();
+
           $.post("/PHP/whiskiDB.php", formData, processData);
           function processData(data){
-              $(".output").html("<p>Data object:" + data + "</p>");
-            
+
+              var parsedData = JSON.parse(data)
+              
+              var overall = parseInt((document.getElementById("overall").value), 10);              
+              var uniqueness = parseInt(document.getElementById("uniqueness").value);
+              var smoothness = parseInt(document.getElementById("smoothness").value);
+              var taste = [];
+              var aroma = [];
+
+
+              function parseOverall(object){
+                for (i=0; i<object.length; i++){
+                  overall = overall + Number(object[i].overall);
+                } 
+                if (object.length == 0) {return overall}
+                  else {
+                return overall/(object.length + 1);
+                  }
+              }
+
+
+              $(".output").html("<p>Results:" + parseOverall(parsedData) + "</p>");
+              
           }
           return false;
-
-//          e.preventDefault();
-
-         //  $.ajax ({
-         //      type: "POST",
-         //      url: "whiskiDB.php",
-         //      data: $('#rating').serialize(),
-         //      success: function(response) {
-         //         $("#rating").hide();
-         //         $(".output").show();
-         //       },
-         //    });
-             
-         // });  
 
        
   // function wordParser(){
@@ -75,19 +89,19 @@
             <ul>
              <li>
               <label for="overall">Overall Score:</label>
-              <input type="number" name="overall" placeholder="0 - 10..."></li>
+              <input type="number" id="overall" name="overall" placeholder="0 - 10..."></li>
              <li>
               <label for="smoothness">Smoothness:</label>
-              <input type="number" name="smoothness" placeholder="0 - 10..."></li>
+              <input type="number" id="smoothness" name="smoothness" placeholder="0 - 10..."></li>
              <li>
               <label for="uniqueness">Uniqueness:</label>
-              <input type="number" name="uniqueness" placeholder="0 - 10..."></li>
+              <input type="number" id="uniqueness" name="uniqueness" placeholder="0 - 10..."></li>
              <li>
               <label for="taste">Tasting Notes:</label>
-              <input type="text" name="taste" placeholder="Oak, smoke, stardust..." onsubmit="return(wordParser())" ></li>
+              <input type="text" id="taste" name="taste" placeholder="Oak, smoke, stardust..." ></li>
              <li>
               <label for="aroma">Nose:</label>
-              <input type="text" name="aroma" placeholder="Fire, vanilla, bad decisions..." onsubmit="return(wordParser())" ></li>
+              <input type="text" id="aroma" name="aroma" placeholder="Fire, vanilla, bad decisions..."></li>
              <li>
                <input type="submit" value="Submit" id="button">
              </li>

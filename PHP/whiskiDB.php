@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$fetch = mysql_query("SELECT * FROM whiski"); 
 
 		while ($row = mysql_fetch_array($fetch, MYSQL_ASSOC)) {
-    		$row_array['ID'] = $row['id'];
     		$row_array['overall'] = $row['overall'];
     		$row_array['smoothness'] = $row['smoothness'];
     		$row_array['uniqueness'] = $row['uniqueness'];
@@ -50,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	    	array_push($return_arr,$row_array);
 		}
 
-	echo '{"Result": '.json_encode($return_arr).'}';
+	echo json_encode($return_arr);
 
 }
 
