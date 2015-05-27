@@ -12,65 +12,9 @@
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/base-min.css">
   <link rel="stylesheet" href="css/basicW.css"> 
   <link rel="stylesheet" href="css/stylesW.css">
+  <link rel="shortcut icon" href="http://www.whiski.club/favicon.ico?v=2" />
   <script src="jquery/jquery.js"></script>
-
-  <script type="text/javascript">
-
-    $(document).ready(function() {
-        $('.output').hide();
-
-
-        $('#rating').on('submit', function(e){
-          $('#rating').hide();
-          $('.output').show();
-
-          var formData = $(this).serialize();
-
-          $.post("/PHP/whiskiDB.php", formData, processData);
-          function processData(data){
-
-              var parsedData = JSON.parse(data)
-              
-              var overall = parseInt((document.getElementById("overall").value), 10);              
-              var uniqueness = parseInt(document.getElementById("uniqueness").value);
-              var smoothness = parseInt(document.getElementById("smoothness").value);
-              var taste = [];
-              var aroma = [];
-
-
-              function parseOverall(object){
-                for (i=0; i<object.length; i++){
-                  overall = overall + Number(object[i].overall);
-                } 
-                if (object.length == 0) {return overall}
-                  else {
-                return overall/(object.length + 1);
-                  }
-              }
-
-
-              $(".output").html("<p>Results:" + parseOverall(parsedData) + "</p>");
-              
-          }
-          return false;
-
-       
-  // function wordParser(){
-  //   var str = document.rating.notes.value;
-  //   var strSplit = str.toLowerCase().split(",");
-  //     for (i=0; i<strSplit.length; i++) {
-  //       var wordSplit = strSplit[i].split("");
-  //         if (wordSplit[0] === " ") {
-  //           strSplit[i] = wordSplit.slice(1).join("");
-  //         }
-  //     }
-  //   return strSplit;
-  // }
-
-  });
-});
-
-</script>
+  <script src="javascript/whiski.js"></script>
 
 </head>
 <body>
@@ -87,15 +31,23 @@
         <div class="input-section clearfix">
           <form id="rating" action="" method="post">
             <ul>
+              <li>
+              <label for="bottle">Bottle:</label>
+                <select name="bottle" id="bottle">
+                  <option value="Jim_Beam">Jim Beam</option>
+                  <option value="Evan_Williams">Evan Williams</option>
+                  <option value="Jack_Daniels">Jack Daniels</option>
+                  <option value="Johnny_Walker">Johnny Walker</option>
+                </select></li>
              <li>
               <label for="overall">Overall Score:</label>
-              <input type="number" id="overall" name="overall" placeholder="0 - 10..."></li>
+              <input type="number" id="overall" name="overall" placeholder="0 - 10..." max="10" min="1"></li>
              <li>
               <label for="smoothness">Smoothness:</label>
-              <input type="number" id="smoothness" name="smoothness" placeholder="0 - 10..."></li>
+              <input type="number" id="smoothness" name="smoothness" placeholder="0 - 10..." max="10" min="1"></li>
              <li>
               <label for="uniqueness">Uniqueness:</label>
-              <input type="number" id="uniqueness" name="uniqueness" placeholder="0 - 10..."></li>
+              <input type="number" id="uniqueness" name="uniqueness" placeholder="0 - 10..." max="10" min="1"></li>
              <li>
               <label for="taste">Tasting Notes:</label>
               <input type="text" id="taste" name="taste" placeholder="Oak, smoke, stardust..." ></li>
@@ -113,9 +65,7 @@
 
   <!-- output -->
 
-    <div class = "output">
-woof.
-
+    <div id = "output">
     </div>
 
 

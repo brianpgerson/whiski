@@ -27,19 +27,21 @@ function test_input($data) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$bottle = test_input($_POST['bottle']);
 	$overall = test_input($_POST['overall']);
 	$smoothness = test_input($_POST['smoothness']);
 	$uniqueness = test_input($_POST['uniqueness']);
 	$taste = test_input($_POST['taste']);
 	$aroma = test_input($_POST['aroma']);
-	$sql = "INSERT INTO whiski (overall, smoothness, uniqueness, taste, aroma) 
-	VALUES ('$overall', '$smoothness', '$uniqueness', '$taste', '$aroma')";
+	$sql = "INSERT INTO $bottle (bottle, overall, smoothness, uniqueness, taste, aroma) 
+	VALUES ('$bottle', '$overall', '$smoothness', '$uniqueness', '$taste', '$aroma')";
 
 	$return_arr = array();
 
-	$fetch = mysql_query("SELECT * FROM whiski"); 
+	$fetch = mysql_query("SELECT * FROM $bottle"); 
 
 		while ($row = mysql_fetch_array($fetch, MYSQL_ASSOC)) {
+    		$row_array['bottle'] = $row['bottle'];
     		$row_array['overall'] = $row['overall'];
     		$row_array['smoothness'] = $row['smoothness'];
     		$row_array['uniqueness'] = $row['uniqueness'];
