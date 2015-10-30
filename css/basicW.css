@@ -10,6 +10,7 @@ html {
   font-family: "Nunito", sans-serif; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
+
 }
 
 /**
@@ -19,14 +20,14 @@ html {
 body {
   margin: 0;
   background-color: #FFDD8F;
-  background: url("img/bgfinal.jpg") fixed no-repeat;
+  background: url("img/bgfinal2.jpg") fixed no-repeat;
   background-size: cover;
 
 
 }
 
 /* HTML5 display definitions
-   ========================================================================== */
+/*   ========================================================================== */
 
 /**
  * Correct `block` display not defined for any HTML5 element in IE 8/9.
@@ -247,12 +248,12 @@ samp {
  * styling of `select`, unless a `border` property is set.
  */
 
-/**
+*
  * 1. Correct color not being inherited.
  *    Known issue: affects color of disabled elements.
  * 2. Correct font properties not being inherited.
  * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
- */
+ 
 
 button,
 input,
@@ -426,4 +427,4 @@ table {
 td,
 th {
   padding: 0;
-}
+}*/

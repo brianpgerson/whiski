@@ -33,12 +33,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$uniqueness = test_input($_POST['uniqueness']);
 	$taste = test_input($_POST['taste']);
 	$aroma = test_input($_POST['aroma']);
-	$sql = "INSERT INTO $bottle (bottle, overall, smoothness, uniqueness, taste, aroma) 
-	VALUES ('$bottle', '$overall', '$smoothness', '$uniqueness', '$taste', '$aroma')";
+	$sql = "INSERT INTO db_bottles (bottle, overall, smoothness, uniqueness, taste, aroma) 
+	VALUES ('$bottle', '$overall', '$smoothness', '$uniqueness', '$taste', '$aroma');";
 
 	$return_arr = array();
 
-	$fetch = mysql_query("SELECT * FROM $bottle"); 
+	$fetch = mysql_query("SELECT * FROM db_bottles WHERE bottle = '$bottle';"); 
+
+		while ($row = mysql_fetch_array($fetch, MYSQL_ASSOC)) {
+    		$row_array['bottle'] = $row['bottle'];
+    		$row_array['overall'] = $row['overall'];
+    		$row_array['smoothness'] = $row['smoothness'];
+    		$row_array['uniqueness'] = $row['uniqueness'];
+    		$row_array['taste'] = $row['taste'];
+    		$row_array['aroma'] = $row['aroma'];
+
+	    	array_push($return_arr,$row_array);
+		}
+
+	echo json_encode($return_arr);
+
+	if (!mysql_query($sql)) {
+	die('Error. Error. ' . mysql_error());
+	}
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	$bottle = test_input($_GET['bottle']);
+
+	$return_arr = array();
+
+	$fetch = mysql_query("SELECT * FROM db_bottles WHERE bottle = '$bottle';"); 
 
 		while ($row = mysql_fetch_array($fetch, MYSQL_ASSOC)) {
     		$row_array['bottle'] = $row['bottle'];
@@ -56,9 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
-if (!mysql_query($sql)) {
-	die('Error. Error. ' . mysql_error());
-}
+
+
 
 
 mysql_close();

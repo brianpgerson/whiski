@@ -15,6 +15,18 @@
   <link rel="shortcut icon" href="http://www.whiski.club/favicon.ico?v=2" />
   <script src="jquery/jquery.js"></script>
   <script src="javascript/whiski.js"></script>
+  <script type="text/javascript">
+
+  function validateForm(fields) {
+    for (i=0;i<fields.length;i++){
+      var x = document.forms["rating"][fields[i]].value;
+      if (x == null || x == "") {
+        alert("To submit your rating, please complete the " + fields[i] + " field.");
+        return false;
+    }
+  }
+}
+</script>
 
 </head>
 <body>
@@ -29,15 +41,14 @@
   <!-- input -->
 
         <div class="input-section clearfix">
-          <form id="rating" action="" method="post">
+          <form id="rating" action="" method="post" name="rating">
             <ul>
               <li>
               <label for="bottle">Bottle:</label>
                 <select name="bottle" id="bottle">
-                  <option value="Jim_Beam">Jim Beam</option>
-                  <option value="Evan_Williams">Evan Williams</option>
-                  <option value="Jack_Daniels">Jack Daniels</option>
-                  <option value="Johnny_Walker">Johnny Walker</option>
+                  <option value='' disabled selected style='display:none;'>Please Choose</option>
+                  <option value="Smooth_Ambler">Smooth Ambler Old Scout Rye</option>
+                  <option value="Dowg">Dowg Rye</option>                  
                 </select></li>
              <li>
               <label for="overall">Overall Score:</label>
@@ -50,12 +61,16 @@
               <input type="number" id="uniqueness" name="uniqueness" placeholder="0 - 10..." max="10" min="1"></li>
              <li>
               <label for="taste">Tasting Notes:</label>
-              <input type="text" id="taste" name="taste" placeholder="Oak, smoke, stardust..." ></li>
+              <input type="text" id="taste" name="taste" placeholder="Oak, smoke, stardust..."></li>
              <li>
-              <label for="aroma">Nose:</label>
+              <label for="aroma">Aroma Notes:</label>
               <input type="text" id="aroma" name="aroma" placeholder="Fire, vanilla, bad decisions..."></li>
              <li>
-               <input type="submit" value="Submit" id="button">
+               <input type="submit" value="Submit" class="button" onclick="return validateForm(['bottle', 'overall', 'smoothness', 'uniqueness', 'taste', 'aroma'])">
+             </li>
+             <li>
+               <input type="submit" value="View Results" class="button" id="resultsB" name="viewResults">
+
              </li>
            </ul>
           </form>
